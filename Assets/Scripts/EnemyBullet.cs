@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBullet : MonoBehaviour
+public class EnemyBullet : MonoBehaviour
 {
     public float speed = 7f;
+
     public Rigidbody2D rb;
 
     public GameObject impactEffect;
@@ -13,7 +14,7 @@ public class PlayerBullet : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()
@@ -23,22 +24,16 @@ public class PlayerBullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        
         Destroy(gameObject);
-        
-        if (other.tag == "Enemy")
+
+        if (other.tag == "Player")
         {
-            other.GetComponent<EnemyController>().TakeDamage(bulettDamage);
-        }
-        else if (other.tag == "EnemyRange")
-        {
-            other.GetComponent<EnemyRangeController>().TakeDamage(bulettDamage);
+
         }
         else
         {
             Instantiate(impactEffect, transform.position, transform.rotation);
         }
-        
     }
 
     void OnBecameInvisible()

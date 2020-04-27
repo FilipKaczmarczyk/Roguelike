@@ -66,6 +66,8 @@ public class PlayerController : MonoBehaviour
         float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
         gunHand.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, angle);
 
+        // SHOOTING
+
         if ((Input.GetMouseButtonDown(0) && canShoot) 
             || (Input.GetMouseButton(0) && canShoot))
         {
@@ -85,6 +87,8 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("moving", false);
         }
     }
+
+    // FIRE RATE
     IEnumerator NextBullet()
     {
         yield return new WaitForSeconds((float)60 / rateOfFire);
