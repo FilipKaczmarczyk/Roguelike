@@ -37,7 +37,7 @@ public class EnemyRangeController : MonoBehaviour
 
     void Update()
     {
-        if (bodyRenderer.isVisible)
+        if (bodyRenderer.isVisible && PlayerController.instance.gameObject.activeInHierarchy)
         {
             // CHOOSE DIRECTION 
 

@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         // CHOOSE DIRECTION 
-        if (bodyRenderer.isVisible)
+        if (bodyRenderer.isVisible && PlayerController.instance.gameObject.activeInHierarchy)
         {
             Vector3 playerPos = PlayerController.instance.transform.position;
 

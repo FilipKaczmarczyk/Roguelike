@@ -28,7 +28,7 @@ public class EnemyBullet : MonoBehaviour
 
         if (other.tag == "Player")
         {
-
+            PlayerHealthController.instance.DamagePlayer(bulettDamage);
         }
         else
         {
