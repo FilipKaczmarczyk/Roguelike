@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - EnemyRange
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -43,9 +44,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Player
-    uniqueID: 389175337
+  - name: Ground
+    uniqueID: 1651957961
+    locked: 0
+  - name: Object
+    uniqueID: 3754780565
+    locked: 0
+  - name: Pickup
+    uniqueID: 3896753907
     locked: 0
   - name: Enemy
     uniqueID: 1934409035
+    locked: 0
+  - name: Bullet
+    uniqueID: 3218803407
+    locked: 0
+  - name: Player
+    uniqueID: 389175337
     locked: 0

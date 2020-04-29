@@ -8,6 +8,15 @@ public class PlayerController : MonoBehaviour
 
     public float moveSpeed = 5f;
     private Vector2 moveDirection;
+    private float currentMoveSpeed;
+
+    public float dashSpeed = 8f;
+    public float dashLength = .5f;
+    public float dashCooldown = 1.5f;
+    public float dashInvincibility = .5f;
+    [HideInInspector]
+    public float dashCounter = 0f;
+    private float dashCooldownCounter = 0f;
 
     public Rigidbody2D rb;
 
@@ -25,6 +34,8 @@ public class PlayerController : MonoBehaviour
 
     private bool canShoot = true;
 
+    public SpriteRenderer bodySpriteRenderer;
+
     private void Awake()
     {
         instance = this;
@@ -33,6 +44,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
+
+        currentMoveSpeed = moveSpeed;
     }
 
     void Update()
@@ -44,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
         moveDirection.Normalize();
 
-        rb.velocity = moveDirection * moveSpeed;
+        rb.velocity = moveDirection * currentMoveSpeed;
 
         // ROTATION
 
@@ -86,6 +99,35 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetBool("moving", false);
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log(dashCounter + " " + dashCooldownCounter);
+            if(dashCounter <= 0 && dashCooldownCounter <= 0)
+            {
+                currentMoveSpeed = dashSpeed;
+                dashCounter = dashLength;
+
+                anim.SetTrigger("dash");
+                PlayerHealthController.instance.Invincibility(dashInvincibility);
+            }
+        }
+
+        if(dashCounter > 0)
+        {
+            dashCounter -= Time.deltaTime;
+            if(dashCounter <= 0)
+            {
+                currentMoveSpeed = moveSpeed;
+                dashCooldownCounter = dashCooldown;
+            }
+        }
+
+        if(dashCooldownCounter > 0)
+        {
+            dashCooldownCounter -= Time.deltaTime;
+        }
+
     }
 
     // FIRE RATE
