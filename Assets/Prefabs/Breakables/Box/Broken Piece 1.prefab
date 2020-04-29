@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4962014340859963826}
   - component: {fileID: 1221988372144392693}
   - component: {fileID: 1409427157306714073}
+  - component: {fileID: -6043122818521504169}
   m_Layer: 0
   m_Name: Broken Piece 1
   m_TagString: Untagged
@@ -97,3 +98,15 @@ MonoBehaviour:
   deceleration: 5
   lifeTime: 2
   fadeOutSpeed: 0.5
+--- !u!114 &-6043122818521504169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3485124169741484995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 751d04c00e08fe44d87e835c66062898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

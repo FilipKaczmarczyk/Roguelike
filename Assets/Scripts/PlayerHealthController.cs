@@ -86,4 +86,17 @@ public class PlayerHealthController : MonoBehaviour
         invincibilityCounter = time;
         PlayerController.instance.bodySpriteRenderer.color = new Color(1f, 1f, 1f, 0.2f);
     }
+
+    public void HealPlayer(int value)
+    {
+        currentHealth += value;
+
+        if(currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+
+        UIController.instance.healthBar.value = currentHealth;
+        UIController.instance.healthText.text = currentHealth.ToString() + " / " + maxHealth.ToString();
+    }
 }

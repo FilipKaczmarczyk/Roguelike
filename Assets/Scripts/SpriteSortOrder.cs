@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class SpriteSortOrder : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private SpriteRenderer sr;
+
     void Start()
     {
-        
+        sr = GetComponent<SpriteRenderer>();
+        sr.sortingOrder = Mathf.RoundToInt(transform.position.y * -100f);
     }
 
     // Update is called once per frame

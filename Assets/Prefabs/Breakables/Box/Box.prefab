@@ -102,6 +102,10 @@ MonoBehaviour:
   - {fileID: 2647114215886820344, guid: 2464eb9edc1d0ea45a925d3390866534, type: 3}
   - {fileID: 4962997577651273184, guid: 3b1bab2c13a7b7a46b714fc04ad2cd8d, type: 3}
   - {fileID: 1688868600889330736, guid: 4e23ebe192e79244cb74d9e540b71227, type: 3}
+  drop: 1
+  drops:
+  - {fileID: 7658493970068690326, guid: 92eb9a0f4210705429705f364aceaafc, type: 3}
+  itemDropPercent: 25
 --- !u!61 &4432712211043256796
 BoxCollider2D:
   m_ObjectHideFlags: 0

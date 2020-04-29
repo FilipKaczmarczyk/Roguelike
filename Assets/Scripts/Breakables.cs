@@ -5,6 +5,11 @@ using UnityEngine;
 public class Breakables : MonoBehaviour
 {
     public GameObject[] brokenPieces;
+
+    public bool drop;
+    public GameObject[] drops;
+    public float itemDropPercent;
+
     void Start()
     {
         
@@ -22,20 +27,31 @@ public class Breakables : MonoBehaviour
             if(PlayerController.instance.dashCounter > 0)
             {
                 Destroy(gameObject);
-
-                for(int i = 0; i < brokenPieces.Length; i++)
-                {
-                    Instantiate(brokenPieces[i], transform.position, transform.rotation);
-                }
+                Broken();
             }
         }
         else if(other.tag == "Bullet")
         {
             Destroy(gameObject);
+            Broken();
+        }
+    }
 
-            for (int i = 0; i < brokenPieces.Length; i++)
+    public void Broken()
+    {
+        for (int i = 0; i < brokenPieces.Length; i++)
+        {
+            Instantiate(brokenPieces[i], transform.position, transform.rotation);
+        }
+
+        if (drop)
+        {
+            float dropChance = Random.Range(0f, 100f);
+
+            if (dropChance < itemDropPercent)
             {
-                Instantiate(brokenPieces[i], transform.position, transform.rotation);
+                int randomItem = Random.Range(0, drops.Length);
+                Instantiate(drops[randomItem], transform.position, transform.rotation);
             }
         }
     }
