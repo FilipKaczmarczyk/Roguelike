@@ -69,6 +69,8 @@ public class EnemyController : MonoBehaviour
     {
         health -= damage;
 
+        AudioManager.instance.PlaySFX(4);
+
         Instantiate(onHitEffect, transform.position, transform.rotation);
 
         if(health <= 0)

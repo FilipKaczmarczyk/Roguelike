@@ -85,6 +85,7 @@ public class PlayerController : MonoBehaviour
             || (Input.GetMouseButton(0) && canShoot))
         {
             Instantiate(bullet, barrel.position, barrel.rotation);
+            AudioManager.instance.PlaySFX(1);
             canShoot = false;
             StartCoroutine(NextBullet());
         }
@@ -109,6 +110,7 @@ public class PlayerController : MonoBehaviour
                 dashCounter = dashLength;
 
                 anim.SetTrigger("dash");
+                AudioManager.instance.PlaySFX(3);
                 PlayerHealthController.instance.Invincibility(dashInvincibility);
             }
         }

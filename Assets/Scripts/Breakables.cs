@@ -33,6 +33,9 @@ public class Breakables : MonoBehaviour
         else if(other.tag == "Bullet")
         {
             Destroy(gameObject);
+
+            AudioManager.instance.PlaySFX(0);
+
             Broken();
         }
     }

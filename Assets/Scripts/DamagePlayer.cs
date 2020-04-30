@@ -20,28 +20,28 @@ public class DamagePlayer : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            PlayerHealthController.instance.DamagePlayer(50);
+            PlayerHealthController.instance.DamagePlayer(50, true);
         }
     }
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
-            PlayerHealthController.instance.DamagePlayer(50);
+            PlayerHealthController.instance.DamagePlayer(50, true);
         }
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Player")
         {
-            PlayerHealthController.instance.DamagePlayer(50);
+            PlayerHealthController.instance.DamagePlayer(50, true);
         }
     }
     private void OnCollisionStay2D(Collision2D other)
     {
         if (other.gameObject.tag == "Player")
         {
-            PlayerHealthController.instance.DamagePlayer(50);
+            PlayerHealthController.instance.DamagePlayer(50, true);
         }
     }
 

@@ -68,6 +68,7 @@ public class EnemyRangeController : MonoBehaviour
                 {
                     fireCounter = fireRate;
                     Instantiate(bullet, barrel.position, barrel.rotation);
+                    AudioManager.instance.PlaySFX(1);
                 }
 
             }
@@ -97,6 +98,8 @@ public class EnemyRangeController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+
+        AudioManager.instance.PlaySFX(4);
 
         Instantiate(onHitEffect, transform.position, transform.rotation);
 

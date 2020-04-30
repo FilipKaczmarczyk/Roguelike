@@ -50,12 +50,12 @@ public class PlayerHealthController : MonoBehaviour
         }  
     }
 
-    public void DamagePlayer(int damage)
+    public void DamagePlayer(int damage, bool trueDamage = false)
     {
         if (invincibilityCounter <= 0)
         {
 
-            if (currentKevlar > 0)
+            if (currentKevlar > 0 && trueDamage == false)
             {
                 currentKevlar--;
 
@@ -71,12 +71,15 @@ public class PlayerHealthController : MonoBehaviour
                     PlayerController.instance.gameObject.SetActive(false);
 
                     UIController.instance.gameOverScreen.SetActive(true);
+
+                    AudioManager.instance.PlayGameOver();
                 }
 
                 UIController.instance.healthBar.value = currentHealth;
                 UIController.instance.healthText.text = currentHealth.ToString() + " / " + maxHealth.ToString();
             }
 
+            AudioManager.instance.PlaySFX(5);
             Instantiate(impactEffect, PlayerController.instance.transform.position, PlayerController.instance.transform.rotation);
             Invincibility(damageInvincibilityLength);
         }

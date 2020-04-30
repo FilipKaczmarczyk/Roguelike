@@ -24,6 +24,7 @@ public class HealthPickup : MonoBehaviour
     {
         if(other.tag == "Player" && pickupOffset <= 0)
         {
+            AudioManager.instance.PlaySFX(2);
             PlayerHealthController.instance.HealPlayer(healAmount);
             Destroy(gameObject);
         }
