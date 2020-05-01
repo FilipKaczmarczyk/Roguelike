@@ -103,7 +103,6 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log(dashCounter + " " + dashCooldownCounter);
             if(dashCounter <= 0 && dashCooldownCounter <= 0)
             {
                 currentMoveSpeed = dashSpeed;
