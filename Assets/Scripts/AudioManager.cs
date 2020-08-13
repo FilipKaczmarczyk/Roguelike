@@ -26,6 +26,11 @@ public class AudioManager : MonoBehaviour
         
     }
 
+    public void StopLevelMusic()
+    {
+        levelMusic.Stop();
+    }
+
     public void PlayGameOver()
     {
         levelMusic.Stop();

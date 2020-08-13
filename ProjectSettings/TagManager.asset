@@ -23,7 +23,7 @@ TagManager:
   - Breakable
   - Ingnore Bullets
   - Pickups
-  - 
+  - Room Layer
   - 
   - 
   - 
@@ -61,4 +61,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 389175337
+    locked: 0
+  - name: Doors
+    uniqueID: 3552101959
     locked: 0
