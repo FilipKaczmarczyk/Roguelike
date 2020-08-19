@@ -26,6 +26,10 @@ public class EnemyController : MonoBehaviour
     public Transform[] patrolPoints;
     private int currentPatrolPoint;
 
+    public bool drop;
+    public GameObject[] drops;
+    public float itemDropPercent;
+
     public Animator anim;
 
     public int health = 100;
@@ -172,6 +176,17 @@ public class EnemyController : MonoBehaviour
             Destroy(gameObject);
 
             Instantiate(deathSplatters[Random.Range(0, deathSplatters.Length)], transform.position, Quaternion.Euler(0f, 0f, Random.Range(0, 4) * 90f));
+
+            if (drop)
+            {
+                float dropChance = Random.Range(0f, 100f);
+
+                if (dropChance < itemDropPercent)
+                {
+                    int randomItem = Random.Range(0, drops.Length);
+                    Instantiate(drops[randomItem], transform.position, transform.rotation);
+                }
+            }
         }
     }
 

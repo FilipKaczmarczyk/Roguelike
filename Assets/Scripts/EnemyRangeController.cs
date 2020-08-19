@@ -30,6 +30,10 @@ public class EnemyRangeController : MonoBehaviour
 
     public Renderer bodyRenderer;
 
+    public bool drop;
+    public GameObject[] drops;
+    public float itemDropPercent;
+
     void Start()
     {
 
@@ -108,6 +112,17 @@ public class EnemyRangeController : MonoBehaviour
             Destroy(gameObject);
 
             Instantiate(deathSplatters[Random.Range(0, deathSplatters.Length)], transform.position, Quaternion.Euler(0f, 0f, Random.Range(0, 4) * 90f));
+
+            if (drop)
+            {
+                float dropChance = Random.Range(0f, 100f);
+
+                if (dropChance < itemDropPercent)
+                {
+                    int randomItem = Random.Range(0, drops.Length);
+                    Instantiate(drops[randomItem], transform.position, transform.rotation);
+                }
+            }
         }
     }
 

@@ -14,6 +14,8 @@ public class UIController : MonoBehaviour
     public Slider kevlarBar;
     public Text kevlarText;
 
+    public Text goldText;
+
     public GameObject gameOverScreen, pauseScreen;
 
     public Image fadeScreen;

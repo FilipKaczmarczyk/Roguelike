@@ -77,17 +77,17 @@ MonoBehaviour:
   moveSpeed: 3
   shouldChasePlayer: 1
   rangeToChasePlayer: 5
-  moveDirection: {x: 0, y: 0, z: 0}
   shouldRunAway: 0
-  rangeToRunAway: 2
+  rangeToRunAway: 0
   shouldWander: 0
-  wanderLength: 4
-  pauseLength: 1.5
+  wanderLength: 0
+  pauseLength: 0
   shouldPatrol: 1
-  patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  patrolPoints: []
+  drop: 1
+  drops:
+  - {fileID: 2512768260244556722, guid: 9ba2e8eac0ac8e44ba1411a5aa6bfd09, type: 3}
+  itemDropPercent: 25
   anim: {fileID: 699757673450587290}
   health: 100
   deathSplatters:
