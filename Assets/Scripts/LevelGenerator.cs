@@ -7,9 +7,11 @@ public class LevelGenerator : MonoBehaviour
 {
     public GameObject layoutRoom;
 
-    public Color startColor, endColor;
+    public Color startColor, endColor, shopColor;
 
     public int howManyRooms;
+    public bool includeShop;
+    public int minDistanceToShop, maxDistanceToShop;
 
     public Transform genertorPoint;
 
@@ -21,7 +23,7 @@ public class LevelGenerator : MonoBehaviour
 
     public LayerMask whereIsRoom;
 
-    private GameObject endRoom;
+    private GameObject endRoom, shopRoom;
 
     private List<GameObject> layoutRoomObjects = new List<GameObject>();
 
@@ -29,7 +31,7 @@ public class LevelGenerator : MonoBehaviour
 
     private List<GameObject> generatedOutlines = new List<GameObject>();
 
-    public RoomCenter centerStart, centerEnd;
+    public RoomCenter centerStart, centerEnd, centerShop;
     public RoomCenter[] centersDefault;
 
     // Start is called before the first frame update
@@ -63,6 +65,14 @@ public class LevelGenerator : MonoBehaviour
 
         }
 
+        if (includeShop)
+        {
+            int shopPosition = Random.Range(minDistanceToShop, maxDistanceToShop + 1);
+            shopRoom = layoutRoomObjects[shopPosition];
+            layoutRoomObjects.RemoveAt(shopPosition);
+            shopRoom.GetComponent<SpriteRenderer>().color = shopColor;
+        }
+
         // create room outline
         CreateRoomOutline(Vector3.zero);
 
@@ -71,8 +81,15 @@ public class LevelGenerator : MonoBehaviour
             CreateRoomOutline(room.transform.position);
         }
 
+        if (includeShop)
+        {
+            CreateRoomOutline(shopRoom.transform.position);
+        }
+
+
         CreateRoomOutline(endRoom.transform.position);
 
+        // match room centers
         foreach(GameObject outline in generatedOutlines)
         {
             if(outline.transform.position == Vector3.zero)
@@ -82,6 +99,19 @@ public class LevelGenerator : MonoBehaviour
             else if(outline.transform.position == endRoom.transform.position)
             {
                 Instantiate(centerEnd, new Vector3(outline.transform.position.x, outline.transform.position.y - 2, 0f), transform.rotation).room = outline.GetComponent<Room>();
+            }
+            else if(includeShop)
+            {
+                if(outline.transform.position == shopRoom.transform.position)
+                {
+                    Instantiate(centerShop, new Vector3(outline.transform.position.x, outline.transform.position.y - 2, 0f), transform.rotation).room = outline.GetComponent<Room>();
+                }
+                else
+                {
+                    int centerRand = Random.Range(0, centersDefault.Length);
+
+                    Instantiate(centersDefault[centerRand], new Vector3(outline.transform.position.x, outline.transform.position.y - 2, 0f), transform.rotation).room = outline.GetComponent<Room>();
+                }
             }
             else
             {

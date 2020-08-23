@@ -102,4 +102,37 @@ public class PlayerHealthController : MonoBehaviour
         UIController.instance.healthBar.value = currentHealth;
         UIController.instance.healthText.text = currentHealth.ToString() + " / " + maxHealth.ToString();
     }
+
+    public void UpgradeHealth(int value)
+    {
+        maxHealth += value;
+        currentHealth = maxHealth;
+
+        UIController.instance.healthBar.maxValue = maxHealth;
+        UIController.instance.healthBar.value = currentHealth;
+        UIController.instance.healthText.text = currentHealth.ToString() + " / " + maxHealth.ToString();
+    }
+
+    public void RepairKevlar(int value)
+    {
+        currentKevlar += value;
+
+        if (currentKevlar > maxKevlar)
+        {
+            currentKevlar = maxKevlar;
+        }
+
+        UIController.instance.kevlarBar.value = currentKevlar;
+        UIController.instance.kevlarText.text = currentKevlar.ToString() + " / " + maxKevlar.ToString();
+    }
+
+    public void UpgradeKevlar(int value)
+    {
+        maxKevlar += value;
+        currentKevlar = maxKevlar;
+
+        UIController.instance.kevlarBar.maxValue = maxKevlar;
+        UIController.instance.kevlarBar.value = currentKevlar;
+        UIController.instance.kevlarText.text = currentKevlar.ToString() + " / " + maxKevlar.ToString();
+    }
 }
