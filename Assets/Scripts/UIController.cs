@@ -16,7 +16,7 @@ public class UIController : MonoBehaviour
 
     public Text goldText;
 
-    public GameObject gameOverScreen, pauseScreen;
+    public GameObject gameOverScreen, pauseScreen, mapDisplay, bigMapText;
 
     public Image fadeScreen;
     public float fadeSpeed;
