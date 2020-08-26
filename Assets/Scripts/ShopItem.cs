@@ -24,7 +24,7 @@ public class ShopItem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.B) && inZone)
+        if(Input.GetKeyDown(KeyCode.E) && inZone)
         {
             if(LevelManager.instance.currentCoins >= itemCost)
             {

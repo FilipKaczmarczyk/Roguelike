@@ -2365,7 +2365,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press 'B' to purchase
+  m_Text: Press 'E' to purchase
 --- !u!114 &8984340120576312225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2757,7 +2757,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press 'B' to purchase
+  m_Text: Press 'E' to purchase
 --- !u!114 &8984340120964837334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2984,7 +2984,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press 'B' to purchase
+  m_Text: Press 'E' to purchase
 --- !u!114 &8984340121009092084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3582,7 +3582,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press 'B' to purchase
+  m_Text: Press 'E' to purchase
 --- !u!114 &8984340121332490531
 MonoBehaviour:
   m_ObjectHideFlags: 0

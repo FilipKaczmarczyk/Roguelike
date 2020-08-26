@@ -24,6 +24,8 @@ public class UIController : MonoBehaviour
 
     public string newGameScene, mainMenuScene;
 
+    public Image GunInUseImage;
+
     private void Awake()
     {
         instance = this;

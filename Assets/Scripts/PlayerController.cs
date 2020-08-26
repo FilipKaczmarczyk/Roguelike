@@ -30,15 +30,10 @@ public class PlayerController : MonoBehaviour
 
     public Animator anim;
 
-    public GameObject bullet;
-
-    public Transform barrel;
-
-    public float rateOfFire = 100f;
-
-    private bool canShoot = true;
-
     public SpriteRenderer bodySpriteRenderer;
+
+    public List<Gun> availableGuns = new List<Gun>();
+    public int gunInUse;
 
     private void Awake()
     {
@@ -50,13 +45,15 @@ public class PlayerController : MonoBehaviour
         cam = Camera.main;
 
         currentMoveSpeed = moveSpeed;
+
+        UIController.instance.GunInUseImage.sprite = availableGuns[gunInUse].gunImageUI;
     }
 
     void Update()
     {
         if (canMove == true && LevelManager.instance.isPause == false)
         {
-            // MOVEMENT
+            // Movement
 
             moveDirection.x = Input.GetAxisRaw("Horizontal");
             moveDirection.y = Input.GetAxisRaw("Vertical");
@@ -65,7 +62,7 @@ public class PlayerController : MonoBehaviour
 
             rb.velocity = moveDirection * currentMoveSpeed;
 
-            // ROTATION
+            // Rotation
 
             Vector3 mousePos = Input.mousePosition;
             Vector3 screenPoint = cam.WorldToScreenPoint(transform.localPosition);
@@ -85,18 +82,7 @@ public class PlayerController : MonoBehaviour
             float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
             gunHand.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, angle);
 
-            // SHOOTING
-
-            if ((Input.GetMouseButtonDown(0) && canShoot)
-                || (Input.GetMouseButton(0) && canShoot))
-            {
-                Instantiate(bullet, barrel.position, barrel.rotation);
-                AudioManager.instance.PlaySFX(1);
-                canShoot = false;
-                StartCoroutine(NextBullet());
-            }
-
-            // ANIMS
+            // Anims
 
             if (moveDirection != Vector2.zero)
             {
@@ -106,6 +92,28 @@ public class PlayerController : MonoBehaviour
             {
                 anim.SetBool("moving", false);
             }
+
+            // Change Weapon
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                if(availableGuns.Count > 0)
+                {
+                    gunInUse++;
+                    if(gunInUse >= availableGuns.Count)
+                    {
+                        gunInUse = 0;
+                    }
+
+                    ChangeGun();
+                }
+                else
+                {
+                    Debug.LogError("No guns available");
+                }
+            }
+
+            // Dashing
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -135,17 +143,23 @@ public class PlayerController : MonoBehaviour
                 dashCooldownCounter -= Time.deltaTime;
             }
 
-            // FIRE RATE
-            IEnumerator NextBullet()
-            {
-                yield return new WaitForSeconds((float)60 / rateOfFire);
-                canShoot = true;
-            }
+            
         }
         else
         {
             rb.velocity = Vector2.zero;
             anim.SetBool("moving", false);
         }
+    }
+
+    public void ChangeGun()
+    {
+        foreach(Gun gun in availableGuns)
+        {
+            gun.gameObject.SetActive(false);
+        }
+
+        availableGuns[gunInUse].gameObject.SetActive(true);
+        UIController.instance.GunInUseImage.sprite = availableGuns[gunInUse].gunImageUI;
     }
 }

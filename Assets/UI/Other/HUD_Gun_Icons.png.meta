@@ -10,19 +10,31 @@ TextureImporter:
     second: HUD_Gun_Icons_1
   - first:
       213: 21300004
-    second: HUD_Gun_Icons_2
+    second: HUD_Gun_Icons_0
   - first:
       213: 21300006
     second: HUD_Gun_Icons_3
   - first:
       213: 21300008
-    second: HUD_Gun_Icons_4
+    second: HUD_Gun_Icons_1
   - first:
       213: 21300010
-    second: HUD_Gun_Icons_5
+    second: HUD_Gun_Icons_4
   - first:
       213: 21300012
-    second: HUD_Gun_Icons_6
+    second: HUD_Gun_Icons_2
+  - first:
+      213: -2172343002418747524
+    second: HUD_Gun_Icons_0
+  - first:
+      213: -3940896912681915257
+    second: HUD_Gun_Icons_1
+  - first:
+      213: -1209311266236218547
+    second: HUD_Gun_Icons_2
+  - first:
+      213: -541052515023210321
+    second: HUD_Gun_Icons_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -114,18 +126,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 48
-        width: 48
+        y: 34
+        width: 35
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b9f10f813dc4a014f970330c8d1808d9
-      internalID: 21300000
+      spriteID: c7766828c894ad1e0800000000000000
+      internalID: -2172343002418747524
       vertices: []
       indices: 
       edges: []
@@ -134,19 +146,19 @@ TextureImporter:
       name: HUD_Gun_Icons_1
       rect:
         serializedVersion: 2
-        x: 48
-        y: 48
-        width: 48
+        x: 0
+        y: 18
+        width: 35
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ba0ef018c352c7a44885fe32cc1e3886
-      internalID: 21300002
+      spriteID: 78c292f332f1f49c0800000000000000
+      internalID: -3940896912681915257
       vertices: []
       indices: 
       edges: []
@@ -156,18 +168,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
-        width: 48
+        y: 2
+        width: 35
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1af3422a99dcd7b4bb6b4328ef78cca4
-      internalID: 21300004
+      spriteID: d43cc118fc9a73fe0800000000000000
+      internalID: -1209311266236218547
       vertices: []
       indices: 
       edges: []
@@ -176,18 +188,18 @@ TextureImporter:
       name: HUD_Gun_Icons_3
       rect:
         serializedVersion: 2
-        x: 48
-        y: 32
-        width: 48
+        x: 35
+        y: 34
+        width: 35
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 16a891a1c82c1414189886ac508a0deb
+      spriteID: 62305410000000000800000000000000
       internalID: 21300006
       vertices: []
       indices: 
@@ -197,19 +209,19 @@ TextureImporter:
       name: HUD_Gun_Icons_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 16
-        width: 48
+        x: 35
+        y: 18
+        width: 35
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b226e0a69f9e934ea999d4af5bddfb0
-      internalID: 21300008
+      spriteID: a2305410000000000800000000000000
+      internalID: 21300010
       vertices: []
       indices: 
       edges: []
@@ -218,40 +230,19 @@ TextureImporter:
       name: HUD_Gun_Icons_5
       rect:
         serializedVersion: 2
-        x: 48
-        y: 16
-        width: 48
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 202eb0196e68cc54795053d0a111500e
-      internalID: 21300010
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HUD_Gun_Icons_6
-      rect:
-        serializedVersion: 2
-        x: 0
+        x: 35
         y: 0
-        width: 48
-        height: 16
+        width: 35
+        height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f8eb031e832cd8b479589ca34c910147
-      internalID: 21300012
+      spriteID: fa8b53daa9bcd78f0800000000000000
+      internalID: -541052515023210321
       vertices: []
       indices: 
       edges: []
