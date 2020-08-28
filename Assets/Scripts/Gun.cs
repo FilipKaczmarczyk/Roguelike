@@ -16,7 +16,9 @@ public class Gun : MonoBehaviour
     public bool automatic;
 
     public string weaponName;
-    public Sprite gunImageUI;
+    public Sprite gunImage;
+
+    public int price;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +42,7 @@ public class Gun : MonoBehaviour
                 {
                     Instantiate(bullet, barrel.position, barrel.rotation);
                     shotCounter = (1 / fireRate);
-                    switch (PlayerController.instance.availableGuns[PlayerController.instance.gunInUse].name)
+                    switch (PlayerController.instance.availableGuns[PlayerController.instance.gunInUse].weaponName)
                     {
                         case "Pistol":
                             AudioManager.instance.PlaySFX(1);

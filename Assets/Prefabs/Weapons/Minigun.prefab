@@ -101,7 +101,8 @@ MonoBehaviour:
   fireRate: 8
   automatic: 1
   weaponName: Minigun
-  gunImageUI: {fileID: 21300010, guid: f72804754a2106a4884d758772ef2a02, type: 3}
+  gunImage: {fileID: 21300010, guid: f72804754a2106a4884d758772ef2a02, type: 3}
+  price: 60
 --- !u!1 &5501244968633889285
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopItem : MonoBehaviour
 {
@@ -16,9 +17,23 @@ public class ShopItem : MonoBehaviour
 
     public int kevlarUpgradeValue;
 
+    public Gun[] potencialGuns;
+    private Gun selectedGun;
+    public SpriteRenderer gunSprite;
+    public Text info;
+
+
     void Start()
     {
-        
+        if (isWeapon)
+        {
+            int randomGun = Random.Range(0, potencialGuns.Length);
+            selectedGun = potencialGuns[randomGun];
+
+            gunSprite.sprite = selectedGun.gunImage;
+            info.text = "Buy " + selectedGun.weaponName + "\n - " + selectedGun.price + " Gold -";
+            itemCost = selectedGun.price;
+        }
     }
 
     // Update is called once per frame
@@ -50,6 +65,20 @@ public class ShopItem : MonoBehaviour
                 if (isKevlarUpgrade)
                 {
                     PlayerHealthController.instance.UpgradeKevlar(kevlarUpgradeValue);
+                }
+
+                if (isWeapon)
+                {
+                    Gun newGun = Instantiate(selectedGun);
+                    newGun.transform.parent = PlayerController.instance.gunHand;
+                    newGun.transform.position = PlayerController.instance.gunHand.position;
+                    newGun.transform.localRotation = Quaternion.Euler(Vector3.zero);
+                    newGun.transform.localScale = Vector3.one;
+
+                    PlayerController.instance.availableGuns.Add(newGun);
+                    PlayerController.instance.gunInUse = PlayerController.instance.availableGuns.Count - 1;
+
+                    PlayerController.instance.ChangeGun();
                 }
 
                 gameObject.SetActive(false);

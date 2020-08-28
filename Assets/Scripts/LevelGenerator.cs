@@ -7,11 +7,15 @@ public class LevelGenerator : MonoBehaviour
 {
     public GameObject layoutRoom;
 
-    public Color startColor, endColor, shopColor;
+    public Color startColor, endColor, shopColor, gunChestRoomColor;
 
     public int howManyRooms;
+
     public bool includeShop;
+    public bool includeGunChestRoom;
+
     public int minDistanceToShop, maxDistanceToShop;
+    public int minDistanceToGunChestRoom, maxDistanceToGunChestRoom;
 
     public Transform genertorPoint;
 
@@ -23,7 +27,7 @@ public class LevelGenerator : MonoBehaviour
 
     public LayerMask whereIsRoom;
 
-    private GameObject endRoom, shopRoom;
+    private GameObject endRoom, shopRoom, gunChestRoom;
 
     private List<GameObject> layoutRoomObjects = new List<GameObject>();
 
@@ -31,7 +35,7 @@ public class LevelGenerator : MonoBehaviour
 
     private List<GameObject> generatedOutlines = new List<GameObject>();
 
-    public RoomCenter centerStart, centerEnd, centerShop;
+    public RoomCenter centerStart, centerEnd, centerShop, centerGunChestRoom;
     public RoomCenter[] centersDefault;
 
     // Start is called before the first frame update
@@ -73,6 +77,14 @@ public class LevelGenerator : MonoBehaviour
             shopRoom.GetComponent<SpriteRenderer>().color = shopColor;
         }
 
+        if (includeGunChestRoom)
+        {
+            int gunChestRoomPosition = Random.Range(minDistanceToGunChestRoom, maxDistanceToGunChestRoom + 1);
+            gunChestRoom = layoutRoomObjects[gunChestRoomPosition];
+            layoutRoomObjects.RemoveAt(gunChestRoomPosition);
+            gunChestRoom.GetComponent<SpriteRenderer>().color = gunChestRoomColor;
+        }
+
         // create room outline
         CreateRoomOutline(Vector3.zero);
 
@@ -86,25 +98,59 @@ public class LevelGenerator : MonoBehaviour
             CreateRoomOutline(shopRoom.transform.position);
         }
 
+        if (includeGunChestRoom)
+        {
+            CreateRoomOutline(gunChestRoom.transform.position);
+        }
 
         CreateRoomOutline(endRoom.transform.position);
 
         // match room centers
         foreach(GameObject outline in generatedOutlines)
         {
-            if(outline.transform.position == Vector3.zero)
+            if (outline.transform.position == Vector3.zero)
             {
                 Instantiate(centerStart, new Vector3(outline.transform.position.x, outline.transform.position.y - 2, 0f), transform.rotation).room = outline.GetComponent<Room>();
             }
-            else if(outline.transform.position == endRoom.transform.position)
+            else if (outline.transform.position == endRoom.transform.position)
             {
                 Instantiate(centerEnd, new Vector3(outline.transform.position.x, outline.transform.position.y - 2, 0f), transform.rotation).room = outline.GetComponent<Room>();
             }
-            else if(includeShop)
+            else if (includeShop && includeGunChestRoom)
             {
-                if(outline.transform.position == shopRoom.transform.position)
+                if (outline.transform.position == shopRoom.transform.position)
                 {
                     Instantiate(centerShop, new Vector3(outline.transform.position.x, outline.transform.position.y - 2, 0f), transform.rotation).room = outline.GetComponent<Room>();
+                }
+                else if (outline.transform.position == gunChestRoom.transform.position)
+                {
+                    Instantiate(centerGunChestRoom, new Vector3(outline.transform.position.x, outline.transform.position.y - 2, 0f), transform.rotation).room = outline.GetComponent<Room>();
+                }
+                else
+                {
+                    int centerRand = Random.Range(0, centersDefault.Length);
+
+                    Instantiate(centersDefault[centerRand], new Vector3(outline.transform.position.x, outline.transform.position.y - 2, 0f), transform.rotation).room = outline.GetComponent<Room>();
+                }
+            }
+            else if (includeShop)
+            {
+                if (outline.transform.position == shopRoom.transform.position)
+                {
+                    Instantiate(centerShop, new Vector3(outline.transform.position.x, outline.transform.position.y - 2, 0f), transform.rotation).room = outline.GetComponent<Room>();
+                }
+                else
+                {
+                    int centerRand = Random.Range(0, centersDefault.Length);
+
+                    Instantiate(centersDefault[centerRand], new Vector3(outline.transform.position.x, outline.transform.position.y - 2, 0f), transform.rotation).room = outline.GetComponent<Room>();
+                }
+            }
+            else if (includeGunChestRoom)
+            {
+                if (outline.transform.position == gunChestRoom.transform.position)
+                {
+                    Instantiate(centerGunChestRoom, new Vector3(outline.transform.position.x, outline.transform.position.y - 2, 0f), transform.rotation).room = outline.GetComponent<Room>();
                 }
                 else
                 {

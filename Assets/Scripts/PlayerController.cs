@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer bodySpriteRenderer;
 
     public List<Gun> availableGuns = new List<Gun>();
+
+    [HideInInspector]
     public int gunInUse;
 
     private void Awake()
@@ -46,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
         currentMoveSpeed = moveSpeed;
 
-        UIController.instance.GunInUseImage.sprite = availableGuns[gunInUse].gunImageUI;
+        UIController.instance.GunInUseImage.sprite = availableGuns[gunInUse].gunImage;
     }
 
     void Update()
@@ -160,6 +162,6 @@ public class PlayerController : MonoBehaviour
         }
 
         availableGuns[gunInUse].gameObject.SetActive(true);
-        UIController.instance.GunInUseImage.sprite = availableGuns[gunInUse].gunImageUI;
+        UIController.instance.GunInUseImage.sprite = availableGuns[gunInUse].gunImage;
     }
 }

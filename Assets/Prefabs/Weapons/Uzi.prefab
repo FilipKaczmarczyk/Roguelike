@@ -101,8 +101,9 @@ MonoBehaviour:
   fireRate: 6
   automatic: 1
   weaponName: Uzi
-  gunImageUI: {fileID: -541052515023210321, guid: f72804754a2106a4884d758772ef2a02,
+  gunImage: {fileID: -541052515023210321, guid: f72804754a2106a4884d758772ef2a02,
     type: 3}
+  price: 35
 --- !u!1 &4908786244451045367
 GameObject:
   m_ObjectHideFlags: 0
