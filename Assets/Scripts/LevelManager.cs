@@ -9,11 +9,19 @@ public class LevelManager : MonoBehaviour
 
     public float waitToLoad = 3f;
 
+    public string levelName;
+
     public string nextLevel;
 
     public bool isPause = false;
 
     public int currentCoins;
+
+    public Transform startPoint;
+
+    public GameObject tracker;
+
+    public GameObject player;
 
     private void Awake()
     {
@@ -22,9 +30,29 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+        if (GameObject.FindGameObjectWithTag("Player") == null)
+        {
+            GameObject Player = Instantiate(player, startPoint.position, Quaternion.identity);
+        }
+
+        levelName = SceneManager.GetActiveScene().name; 
+
+        PlayerController.instance.transform.position = startPoint.position;
+        PlayerController.instance.canMove = true;
+
+        if (Save.instance.load == true)
+        {
+            currentCoins = Save.instance.currentCoins;
+        }
+        else
+        {
+            currentCoins = Tracker.instance.currentCoins;
+        }
+
         Time.timeScale = 1f;
 
         UIController.instance.goldText.text = currentCoins.ToString();
+        UIController.instance.levelText.text = levelName;
     }
 
     void Update()
@@ -37,6 +65,8 @@ public class LevelManager : MonoBehaviour
 
     public IEnumerator LevelEnd()
     {
+        Save.instance.load = false;
+
         AudioManager.instance.PlaySFX(6);
 
         AudioManager.instance.StopLevelMusic();
@@ -47,7 +77,24 @@ public class LevelManager : MonoBehaviour
 
         yield return new WaitForSeconds(waitToLoad);
 
+        if (typeof(Tracker) != null)
+        {
+            Debug.Log("Traker nie istnieje");
+            Instantiate(tracker, Vector3.zero, Quaternion.identity);
+        }
+
+        Tracker.instance.currentCoins = currentCoins;
+        Tracker.instance.currentHealth = PlayerHealthController.instance.currentHealth;
+        Tracker.instance.maxHealth = PlayerHealthController.instance.maxHealth;
+        Tracker.instance.currentKevlar = PlayerHealthController.instance.currentKevlar;
+        Tracker.instance.maxKevlar = PlayerHealthController.instance.maxKevlar;
+
         SceneManager.LoadScene(nextLevel);
+
+        if (nextLevel == "Victory")
+        {
+            PlayerController.instance.gameObject.SetActive(false);
+        }
     }
 
     public void PauseAndUnpause()
@@ -83,4 +130,5 @@ public class LevelManager : MonoBehaviour
 
         UIController.instance.goldText.text = currentCoins.ToString();
     }
+
 }

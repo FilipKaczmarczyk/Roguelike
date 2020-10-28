@@ -26,7 +26,7 @@ public class CoinPickup : MonoBehaviour
     {
         if (other.tag == "Player" && pickupOffset <= 0)
         {
-            LevelManager.instance.GetCoins(coinValue);
+            LevelManager.instance.GetCoins(coinValue * Random.Range(1,11));
             AudioManager.instance.PlaySFX(7);
             Destroy(gameObject);
         }

@@ -24,8 +24,21 @@ public class PlayerHealthController : MonoBehaviour
 
     void Start()
     {
-        currentHealth = maxHealth;
-        currentKevlar = maxKevlar;
+        if (Save.instance.load == true)
+        {
+            currentHealth = Save.instance.currentHealth;
+            maxHealth = Save.instance.maxHealth;
+            currentKevlar = Save.instance.currentKevlar;
+            maxKevlar = Save.instance.maxKevlar;
+        }
+        else
+        {
+            maxHealth = Tracker.instance.maxHealth;
+            currentHealth = Tracker.instance.currentHealth;
+            maxKevlar = Tracker.instance.maxKevlar;
+            currentKevlar = Tracker.instance.currentKevlar;
+        }
+        
 
         UIController.instance.healthBar.maxValue = maxHealth;
         UIController.instance.healthBar.value = currentHealth;
@@ -68,6 +81,8 @@ public class PlayerHealthController : MonoBehaviour
 
                 if (currentHealth <= 0)
                 {
+                    Save.instance.load = false;
+
                     PlayerController.instance.gameObject.SetActive(false);
 
                     UIController.instance.gameOverScreen.SetActive(true);
@@ -135,4 +150,5 @@ public class PlayerHealthController : MonoBehaviour
         UIController.instance.kevlarBar.value = currentKevlar;
         UIController.instance.kevlarText.text = currentKevlar.ToString() + " / " + maxKevlar.ToString();
     }
+
 }

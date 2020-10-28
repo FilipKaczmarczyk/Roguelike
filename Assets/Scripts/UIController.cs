@@ -16,6 +16,8 @@ public class UIController : MonoBehaviour
 
     public Text goldText;
 
+    public Text levelText;
+
     public GameObject gameOverScreen, pauseScreen, mapDisplay, bigMapText;
 
     public Image fadeScreen;
@@ -26,6 +28,8 @@ public class UIController : MonoBehaviour
 
     public Image GunInUseImage;
 
+    public Slider bossHealthBar;
+
     private void Awake()
     {
         instance = this;
@@ -35,6 +39,12 @@ public class UIController : MonoBehaviour
     {
         fadeOutBlack = true;
         fadeInBlack = false;
+
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+        {
+            GunInUseImage.sprite = PlayerController.instance.availableGuns[PlayerController.instance.gunInUse].gunImage;
+        }
+        
     }
 
     void Update()
@@ -76,7 +86,14 @@ public class UIController : MonoBehaviour
     {
         Time.timeScale = 1f;
 
+        PlayerController.instance.gameObject.SetActive(false);
+
         SceneManager.LoadScene(mainMenuScene);
+    }
+
+    public void SaveGame()
+    {
+        SaveSystem.SavePlayer(PlayerHealthController.instance, LevelManager.instance, PlayerController.instance);
     }
 
     public void Resume()

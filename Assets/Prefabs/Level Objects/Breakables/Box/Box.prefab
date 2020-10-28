@@ -108,6 +108,7 @@ MonoBehaviour:
   drops:
   - {fileID: 7658493970068690326, guid: 92eb9a0f4210705429705f364aceaafc, type: 3}
   - {fileID: 2512768260244556722, guid: 9ba2e8eac0ac8e44ba1411a5aa6bfd09, type: 3}
+  - {fileID: 7658493970068690326, guid: a6eaa8ab3afc6d44dad413b63a63cf35, type: 3}
   itemDropPercent: 75
 --- !u!61 &4432712211043256796
 BoxCollider2D:

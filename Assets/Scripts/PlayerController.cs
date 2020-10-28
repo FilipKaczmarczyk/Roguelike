@@ -26,13 +26,13 @@ public class PlayerController : MonoBehaviour
 
     public Transform gunHand;
 
-    private Camera cam;
-
     public Animator anim;
 
     public SpriteRenderer bodySpriteRenderer;
 
     public List<Gun> availableGuns = new List<Gun>();
+
+    public Gun[] potencialGuns;
 
     [HideInInspector]
     public int gunInUse;
@@ -40,13 +40,36 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
     {
-        cam = Camera.main;
-
         currentMoveSpeed = moveSpeed;
+
+        if(Save.instance.load == true)
+        {
+            foreach(string weaponName in Save.instance.availableGunsNames )
+            {
+                for(int i = 0; i < potencialGuns.Length; i++)
+                {
+                    if(weaponName == potencialGuns[i].weaponName)
+                    {
+                        Gun newGun = Instantiate(potencialGuns[i]);
+                        newGun.transform.parent = gunHand;
+                        newGun.transform.position = gunHand.position;
+                        newGun.transform.localRotation = Quaternion.Euler(Vector3.zero);
+                        newGun.transform.localScale = Vector3.one;
+
+                        availableGuns.Add(newGun);
+                        gunInUse = availableGuns.Count - 1;
+                    }
+                }
+            }
+
+            ChangeGun();
+        }
 
         UIController.instance.GunInUseImage.sprite = availableGuns[gunInUse].gunImage;
     }
@@ -67,7 +90,7 @@ public class PlayerController : MonoBehaviour
             // Rotation
 
             Vector3 mousePos = Input.mousePosition;
-            Vector3 screenPoint = cam.WorldToScreenPoint(transform.localPosition);
+            Vector3 screenPoint = CameraController.instance.mainCamera.WorldToScreenPoint(transform.localPosition);
 
             if (mousePos.x < screenPoint.x)
             {

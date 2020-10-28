@@ -7,6 +7,21 @@ public class EnemyController : MonoBehaviour
 
     private Vector3 moveDirection;
 
+    [Header("Melee")]
+    public bool melee;
+    public float meleeRange;
+    public GameObject weapon;
+    public float attackSpeed;
+    private float attackCooldown;
+
+    [Header("Range")]
+    public bool range;
+    public float rangeToShootPlayer;
+    public Transform barrel;
+    public float fireRate;
+    private float fireCounter;
+    public GameObject bullet;
+
     [Header("Chase Player")]
     public bool shouldChasePlayer;
     public float rangeToChasePlayer;
@@ -55,37 +70,85 @@ public class EnemyController : MonoBehaviour
             moveDirection = Vector3.zero;
             Vector3 playerPos = PlayerController.instance.transform.position;
 
-            if (Vector3.Distance(transform.position, playerPos) < rangeToChasePlayer && shouldChasePlayer)
+            if (playerPos.x < transform.position.x)
             {
-
-                moveDirection = playerPos - transform.position;
-
-                if (playerPos.x < transform.position.x)
-                {
-                    transform.localScale = new Vector3(-1f, 1f, 1f);
-                }
-                else
-                {
-                    transform.localScale = Vector3.one;
-                }
-
+                transform.localScale = new Vector3(-1f, 1f, 1f);
             }
             else
             {
-                if (shouldWander)
+                transform.localScale = Vector3.one;
+            }
+
+            if (Vector3.Distance(transform.position, playerPos) < meleeRange && melee)
+            {
+                rb.velocity = Vector3.zero;
+
+                attackCooldown -= Time.deltaTime;
+
+                if(attackCooldown <= 0)
                 {
-                    if(wanderCounter > 0)
+                    anim.SetBool("attacking", true);
+                }
+            }
+            else if (Vector3.Distance(transform.position, playerPos) < rangeToShootPlayer && range)
+            {
+                fireCounter -= Time.deltaTime;
+
+                if (fireCounter <= 0)
+                {
+                    anim.SetBool("attacking", true);
+                }
+            }
+            else
+            {
+                if (Vector3.Distance(transform.position, playerPos) < rangeToChasePlayer && shouldChasePlayer)
+                {
+                    moveDirection = playerPos - transform.position;
+                }
+                else
+                {
+                    if (shouldWander)
                     {
-                        wanderCounter -= Time.deltaTime;
-
-                        moveDirection = wanderDirection;
-
-                        if(wanderCounter <= 0)
+                        if (wanderCounter > 0)
                         {
-                            pauseCounter = Random.Range(pauseLength * 0.75f, pauseLength * 1.5f);
-                        }
+                            wanderCounter -= Time.deltaTime;
 
-                        if (wanderDirection.x <= 0f)
+                            moveDirection = wanderDirection;
+
+                            if (wanderCounter <= 0)
+                            {
+                                pauseCounter = Random.Range(pauseLength * 0.75f, pauseLength * 1.5f);
+                            }
+
+                            if (wanderDirection.x <= 0f)
+                            {
+                                transform.localScale = new Vector3(-1f, 1f, 1f);
+                            }
+                            else
+                            {
+                                transform.localScale = Vector3.one;
+                            }
+
+
+                        }
+                        if (pauseCounter > 0)
+                        {
+                            pauseCounter -= Time.deltaTime;
+
+                            if (pauseCounter <= 0)
+                            {
+                                wanderCounter = Random.Range(wanderLength * 0.75f, wanderLength * 1.5f);
+
+                                wanderDirection = new Vector3(Random.Range(-1f, 1f), Random.Range(-1, 1f), 0);
+                            }
+                        }
+                    }
+
+                    if (shouldPatrol)
+                    {
+                        moveDirection = patrolPoints[currentPatrolPoint].transform.position - transform.position;
+
+                        if (moveDirection.x <= 0f)
                         {
                             transform.localScale = new Vector3(-1f, 1f, 1f);
                         }
@@ -94,58 +157,25 @@ public class EnemyController : MonoBehaviour
                             transform.localScale = Vector3.one;
                         }
 
-
-                    }
-                    if(pauseCounter > 0)
-                    {
-                        pauseCounter -= Time.deltaTime;
-
-                        if(pauseCounter <= 0)
+                        if (Vector3.Distance(transform.position, patrolPoints[currentPatrolPoint].position) < .1f)
                         {
-                            wanderCounter = Random.Range(wanderLength * 0.75f, wanderLength * 1.5f);
-
-                            wanderDirection = new Vector3(Random.Range(-1f, 1f), Random.Range(-1, 1f), 0);
+                            currentPatrolPoint++;
+                            if (currentPatrolPoint >= patrolPoints.Length)
+                            {
+                                currentPatrolPoint = 0;
+                            }
                         }
                     }
                 }
 
-                if (shouldPatrol)
+                if (Vector3.Distance(transform.position, playerPos) < rangeToRunAway && shouldRunAway)
                 {
-                    moveDirection = patrolPoints[currentPatrolPoint].transform.position - transform.position;
-
-                    if (moveDirection.x <= 0f)
-                    {
-                        transform.localScale = new Vector3(-1f, 1f, 1f);
-                    }
-                    else
-                    {
-                        transform.localScale = Vector3.one;
-                    }
-
-                    if (Vector3.Distance(transform.position, patrolPoints[currentPatrolPoint].position) < .1f)
-                    {
-                        currentPatrolPoint++;
-                        if(currentPatrolPoint >= patrolPoints.Length)
-                        {
-                            currentPatrolPoint = 0;
-                        }
-                    }
+                    moveDirection = transform.position - playerPos;
                 }
+
             }
 
-            if (Vector3.Distance(transform.position, playerPos) < rangeToRunAway && shouldRunAway)
-            {
-                moveDirection = transform.position - playerPos;   
-            }
-
-                /*else
-                {
-                    moveDirection = Vector3.zero;
-                }
-                */
-
-
-                // MOVEMENT
+            // MOVEMENT
 
             moveDirection.Normalize();
             rb.velocity = moveDirection * moveSpeed;
@@ -160,6 +190,7 @@ public class EnemyController : MonoBehaviour
             {
                 anim.SetBool("moving", false);
             }
+
         }
     }
 
@@ -188,6 +219,36 @@ public class EnemyController : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            rangeToChasePlayer = 15;
+        }
+    }
+
+    public void Fire()
+    {
+        fireCounter = fireRate;
+        Instantiate(bullet, barrel.position, barrel.rotation);
+        AudioManager.instance.PlaySFX(16);
+    }
+
+
+    public void StopFire()
+    {
+        anim.SetBool("attacking", false);
+    }
+
+    public void Attack()
+    {
+        weapon.SetActive(true);
+        AudioManager.instance.PlaySFX(15);
+    }
+
+    public void StopAttack()
+    {
+        weapon.SetActive(false);
+        attackCooldown = attackSpeed;
+        anim.SetBool("attacking", false);
     }
 
     private void OnCollisionEnter2D(Collision2D other)

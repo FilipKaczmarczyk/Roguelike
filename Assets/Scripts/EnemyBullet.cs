@@ -6,20 +6,21 @@ public class EnemyBullet : MonoBehaviour
 {
     public float speed = 7f;
 
-    public Rigidbody2D rb;
-
     public GameObject impactEffect;
 
     public int bulettDamage = 25;
 
+    private Vector3 direction;
+
     void Start()
     {
-
+        direction = PlayerController.instance.transform.position - transform.position;
+        direction.Normalize();
     }
 
     void Update()
     {
-        rb.velocity = transform.right * speed;
+        transform.position += direction * speed * Time.deltaTime;
     }
 
     void OnTriggerEnter2D(Collider2D other)

@@ -25,7 +25,9 @@ public class PlayerBullet : MonoBehaviour
     {
         
         Destroy(gameObject);
-        
+
+        Instantiate(impactEffect, transform.position, transform.rotation);
+
         if (other.tag == "Enemy")
         {
             other.GetComponent<EnemyController>().TakeDamage(bulettDamage);
@@ -34,10 +36,14 @@ public class PlayerBullet : MonoBehaviour
         {
             other.GetComponent<EnemyRangeController>().TakeDamage(bulettDamage);
         }
-        else
+        else if(other.tag == "Boss")
         {
-            Instantiate(impactEffect, transform.position, transform.rotation);
+            other.GetComponent<BossController>().TakeDamage(bulettDamage);
         }
+       /* else
+        {
+            
+        }*/
         
     }
 
