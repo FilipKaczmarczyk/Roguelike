@@ -3,8 +3,13 @@ Celem gry jest zabicie bossa, który znajduje się w ostatniej lokacji, aby do n
 Sterowanie:
 
 ruch - strzałki
+
 strzał - lewy przycisk myszy 
+
 doskok - spacja
+
 zmiana broni - q
+
 Otwarcie skrzyni/zakup w sklepie - e
+
 Otwarcie menu pauzy - esc
